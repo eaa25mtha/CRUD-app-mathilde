@@ -11,7 +11,7 @@ export default function HomePage() {
 
   useEffect(() => {
     async function getPosts() {
-      // TODO: Hent alle posts fra Supabase og gem dem i posts state
+      //Hent alle posts fra Supabase og gem dem i posts state
       const response = await fetch(URL, {
         headers: {
           apikey: APIKEY,

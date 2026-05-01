@@ -12,9 +12,21 @@ export default function CreatePage() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    //Send en POST request til Supabase med image og caption
+    await fetch(URL, {
+      method: "POST",
+      headers: {
+        apikey: APIKEY,
+        "content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        image: image.trim(),
+        caption: caption.trim(),
+      }),
+    });
 
-    // TODO: Send en POST request til Supabase med image og caption
-    // TODO: Naviger tilbage til forsiden, når postet er gemt
+    //Naviger tilbage til forsiden, når postet er gemt
+    navigate("/");
   }
 
   return (
@@ -32,7 +44,7 @@ export default function CreatePage() {
               value={image}
               onChange={(event) => setImage(event.target.value)}
             />
-            {/* TODO: Gør image-feltet controlled */}
+            {/*Gør image-feltet controlled, se linjerne med value og onChange */}
             {image && (
               <img src={image} alt="Preview" className="image-preview" />
             )}
@@ -49,7 +61,7 @@ export default function CreatePage() {
               value={caption}
               onChange={(event) => setCaption(event.target.value)}
             />
-            {/* TODO: Gør caption-feltet controlled */}
+            {/*Gør caption-feltet controlled, se linjerne med value og onChange */}
           </div>
         </div>
 
@@ -61,4 +73,4 @@ export default function CreatePage() {
       </form>
     </main>
   );
-}
+} //CreatePage slut krølle parantes
