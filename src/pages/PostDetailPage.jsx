@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 
+//env-variabler, kontakten til supabase
 const URL = import.meta.env.VITE_SUPABASE_URL;
-const headers = {
-  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json",
-};
+const APIKEY = import.meta.env.VITE_SUPABASE_APIKEY;
 
 export default function PostDetailPage() {
   const { id } = useParams();
@@ -14,16 +12,36 @@ export default function PostDetailPage() {
 
   useEffect(() => {
     async function getPost() {
-      // TODO: Hent ét post fra Supabase ud fra id i URL'en
+      // Hent ét post fra Supabase ud fra id i URL'en
+      const response = await fetch(`${URL}?id=eq.${id}`, {
+        headers: {
+          apikey: APIKEY,
+          "content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setPost(data[0]);
     }
 
     getPost();
   }, [id]);
 
   async function handleDelete() {
-    // TODO: Bed brugeren bekræfte sletning
-    // TODO: Send en DELETE request til Supabase
-    // TODO: Naviger tilbage til forsiden bagefter
+    //Bed brugeren bekræfte sletning
+    const confirmed = window.confirm("Delete this post?");
+    if (!confirmed) return;
+
+    //Send en DELETE request til Supabase
+    await fetch(`${URL}?id=eq.${id}`, {
+      method: "DELETE",
+      headers: {
+        apikey: APIKEY,
+        "content-Type": "application/json",
+      },
+    });
+
+    //Naviger tilbage til forsiden bagefter
+    navigate("/");
   }
 
   return (
