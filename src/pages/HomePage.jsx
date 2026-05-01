@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
 
+//env-værdier
 const URL = import.meta.env.VITE_SUPABASE_URL;
-const headers = {
-  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json",
-};
+//ændret variablen fra headers til APIKEY
+const APIKEY = import.meta.env.VITE_SUPABASE_APIKEY;
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -13,6 +12,17 @@ export default function HomePage() {
   useEffect(() => {
     async function getPosts() {
       // TODO: Hent alle posts fra Supabase og gem dem i posts state
+      const response = await fetch(URL, {
+        headers: {
+          apikey: APIKEY,
+          "content-Type": "application/json",
+        },
+      });
+
+      //konvertering af data til json
+      const data = await response.json();
+      //gem data i posts state
+      setPosts(data);
     }
 
     getPosts();
