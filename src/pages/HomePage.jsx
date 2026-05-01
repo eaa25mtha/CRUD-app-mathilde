@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
 
-//env-værdier
+//env-værdier, kontakten til supabase
 const URL = import.meta.env.VITE_SUPABASE_URL;
 //ændret variablen fra headers til APIKEY
 const APIKEY = import.meta.env.VITE_SUPABASE_APIKEY;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
-//env-variabler
+//env-variabler, kontakten til supabase
 const URL = import.meta.env.VITE_SUPABASE_URL;
 const APIKEY = import.meta.env.VITE_SUPABASE_APIKEY;
 
