@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
+//env-variabler
 const URL = import.meta.env.VITE_SUPABASE_URL;
-const headers = {
-  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json",
-};
+const APIKEY = import.meta.env.VITE_SUPABASE_APIKEY;
 
 export default function CreatePage() {
   const navigate = useNavigate();
@@ -26,7 +24,14 @@ export default function CreatePage() {
         <div className="form-grid">
           <div className="form-field">
             <label htmlFor="image">Image URL</label>
-            <input id="image" name="image" placeholder="https://..." required />
+            <input
+              id="image"
+              name="image"
+              placeholder="https://..."
+              required
+              value={image}
+              onChange={(event) => setImage(event.target.value)}
+            />
             {/* TODO: Gør image-feltet controlled */}
             {image && (
               <img src={image} alt="Preview" className="image-preview" />
@@ -41,6 +46,8 @@ export default function CreatePage() {
               rows="4"
               placeholder="Write a caption for your post..."
               required
+              value={caption}
+              onChange={(event) => setCaption(event.target.value)}
             />
             {/* TODO: Gør caption-feltet controlled */}
           </div>
